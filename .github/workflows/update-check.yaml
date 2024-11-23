@@ -25,3 +25,4 @@ jobs:
         token: ${{ github.token }}
     - name: Check Update
       run: python3 bridge/update-check.py ${{ github.event_name == 'pull_request' }}
+
