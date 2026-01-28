@@ -2,7 +2,6 @@
 FROM debian:sid-slim AS build
 
 ARG VERSION
-ARG BRIDGE_HOSTNAME
 
 # Install dependencies
 RUN apt-get update && apt-get install -y golang build-essential libsecret-1-dev
