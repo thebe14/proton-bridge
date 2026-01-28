@@ -1,14 +1,14 @@
-name: update check
+name: Track latest version
 
 on:
   push:
     paths:
       - .github/workflows/update-check.yaml
-      - bridge/update-check.py
+      - update-check.py
   pull_request:
     paths:
       - .github/workflows/update-check.yaml
-      - bridge/update-check.py
+      - update-check.py
   schedule:
   - cron: '0 0 * * *'  # runs everyday at midnight
 
@@ -21,4 +21,4 @@ jobs:
       with:
         token: ${{ github.token }}
     - name: Check update
-      run: python3 bridge/update-check.py ${{ github.event_name == 'pull_request' }}
+      run: python3 update-check.py ${{ github.event_name == 'pull_request' }}

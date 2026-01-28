@@ -3,14 +3,14 @@ import sys, os, requests, json
 def git(command):
     return os.system(f"git {command}")
 
-def check_version(directory, new_version):
+def check_version(new_version):
     if not new_version:
         print("Failed to get new version")
         exit(1)
 
     print(f"Latest release is {new_version}")
 
-    with open(f"{directory}/VERSION", "r") as f:
+    with open(f"VERSION", "r") as f:
         old_version = f.read().rstrip()
     
         if old_version == new_version:
@@ -18,10 +18,10 @@ def check_version(directory, new_version):
             exit(0)
 
     # save new release
-    with open(f"{directory}/VERSION", "w") as f:
+    with open(f"VERSION", "w") as f:
         f.write(new_version)
 
-    # commit
+    # commit...
     git("config --local user.name 'GitHub Actions'")
     git("config --local user.email 'actions@github.com'")
 
@@ -32,7 +32,7 @@ def check_version(directory, new_version):
         print("Version did not change")
         exit(0)
 
-    result = git(f"commit -m 'Bump {directory} version to {new_version}'")
+    result = git(f"commit -m 'Bump version to {new_version}'")
     if result != 0:
         print("Failed to commit")
         exit(1)
@@ -42,6 +42,7 @@ def check_version(directory, new_version):
         print("This is a pull request, skipping push")
         exit(0)
 
+    # ...and push
     result = git("push")
     if result != 0:
         print("Failed to push")
@@ -49,8 +50,7 @@ def check_version(directory, new_version):
 
     print(f"Recorded release {new_version}")
 
-# get latest release
+# get latest release, check if that's what we have in VERSION, if not save it
 release = requests.get("https://api.github.com/repos/protonmail/proton-bridge/releases/latest").json()
 version = release['tag_name']
-
-check_version("bridge", version)
+check_version(version)
