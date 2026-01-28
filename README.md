@@ -1,6 +1,6 @@
 # ProtonMail IMAP/SMTP Bridge Docker Container
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?label=License)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/thebe14/proton-bridge?color=darkcyan&label=Release)
+![version badge](https://img.shields.io/docker/v/yssro/proton-bridge?label=Version)
 ![image size badge](https://img.shields.io/docker/image-size/yssro/proton-bridge/bridge?label=Image+size)
 ![docker pulls badge](https://img.shields.io/docker/pulls/yssro/proton-bridge?label=Docker+pulls)
 ![build badge](https://github.com/thebe14/proton-bridge/workflows/Build%20from%20source/badge.svg)
