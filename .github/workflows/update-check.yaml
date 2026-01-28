@@ -20,6 +20,5 @@ jobs:
       uses: actions/checkout@master
       with:
         token: ${{ github.token }}
-    - name: Check Update
+    - name: Check update
       run: python3 bridge/update-check.py ${{ github.event_name == 'pull_request' }}
-

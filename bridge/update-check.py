@@ -1,10 +1,5 @@
 import sys, os, requests, json
 
-is_pull_request = sys.argv[1] == "true"
-if is_pull_request:
-    print("This is a pull request, skipping")
-    exit(0)
-
 def git(command):
     return os.system(f"git {command}")
 
@@ -22,25 +17,35 @@ def check_version(directory, new_version):
             print(f"No change")
             exit(0)
 
+    # save new release
+    with open(f"{directory}/VERSION", "w") as f:
+        f.write(new_version)
+
     # commit
     git("config --local user.name 'GitHub Actions'")
     git("config --local user.email 'actions@github.com'")
 
     git("add -A")
 
+    result = git("diff --cached --quiet") == 0: # Returns 0 if there are no changes
+    if result == 0:
+        print("Version did not change")
+        exit(0)
+
     result = git(f"commit -m 'Bump {directory} version to {new_version}'")
     if result != 0:
         print("Failed to commit")
         exit(1)
 
+     is_pull_request = sys.argv[1] == "true"
+     if is_pull_request:
+        print("This is a pull request, skipping push")
+        exit(0)
+
     result = git("push")
     if result != 0:
         print("Failed to push")
         exit(1)
-
-    # save new release
-    with open(f"{directory}/VERSION", "w") as f:
-        f.write(new_version)
 
     print(f"Recorded release {new_version}")
 
