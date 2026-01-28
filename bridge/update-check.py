@@ -37,8 +37,8 @@ def check_version(directory, new_version):
         print("Failed to commit")
         exit(1)
 
-     is_pull_request = sys.argv[1] == "true"
-     if is_pull_request:
+    is_pull_request = sys.argv[1] == "true"
+    if is_pull_request:
         print("This is a pull request, skipping push")
         exit(0)
 
