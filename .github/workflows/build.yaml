@@ -21,7 +21,7 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/master'
+    if: github.ref != 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -57,14 +57,14 @@ jobs:
           outputs: type=image,"name=${{ env.GHCR_REPO_DEV }}",push-by-digest=false,name-canonical=true,push=true
           context: ./bridge
           file: ./bridge/Dockerfile
-          tags: "${{ env.GHCR_REPO_DEV }}:dev-${{ github.ref_name }}"
+          tags: "${{ env.GHCR_REPO_DEV }}:test-${{ github.ref_name }}"
           build-args: |
             VERSION=${{ env.version }}
 
       - name: Run Trivy vulnerability scan
         uses: aquasecurity/trivy-action@0.30.0
         with:
-          image-ref: "${{ env.GHCR_REPO_DEV }}:dev-${{ github.ref_name }}"
+          image-ref: "${{ env.GHCR_REPO_DEV }}:test-${{ github.ref_name }}"
           format: 'sarif'
           exit-code: 0
           severity: 'CRITICAL,HIGH'
@@ -77,7 +77,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     strategy:
       fail-fast: false
       matrix:
