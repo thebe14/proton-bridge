@@ -4,9 +4,13 @@ def git(command):
     return os.system(f"git {command}")
 
 def check_version(new_version):
+    # we receive versions of the form v1.2.3
     if not new_version:
         print("Failed to get new version")
         exit(1)
+
+    # strip leading v
+    new_version = new_version.strip('v')
 
     print(f"Latest release is {new_version}")
 
