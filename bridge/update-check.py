@@ -27,7 +27,7 @@ def check_version(directory, new_version):
 
     git("add -A")
 
-    result = git("diff --cached --quiet") == 0: # Returns 0 if there are no changes
+    result = git("diff --cached --quiet") # Returns 0 if there are no changes
     if result == 0:
         print("Version did not change")
         exit(0)
