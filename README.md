@@ -1,7 +1,7 @@
 # ProtonMail IMAP/SMTP Bridge Docker Container
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?label=License)
 ![version badge](https://img.shields.io/docker/v/yssro/proton-bridge?label=Version)
-![image size badge](https://img.shields.io/docker/image-size/yssro/proton-bridge/bridge?label=Size)
+![image size badge](https://img.shields.io/docker/image-size/yssro/proton-bridge?arch=amd64&label=Size)
 ![docker pulls badge](https://img.shields.io/docker/pulls/yssro/proton-bridge?label=Pulls)
 ![build badge](https://github.com/thebe14/proton-bridge/workflows/Build/badge.svg)
 ![GitHub issues](https://img.shields.io/github/issues/thebe14/proton-bridge?label=Issues)
@@ -16,7 +16,7 @@ app on your computer, or using the ProtonMail Android or iOS apps on your phone.
 
 Images are available on Docker Hub at
 [https://hub.docker.com/repository/docker/yssro/proton-bridge](https://hub.docker.com/repository/docker/yssro/proton-bridge)
-and support ARM (`arm64` and `arm/v7`) and RISC devices (`riscv64`).
+and support Intel (`amd64`), ARM (`arm64` and `arm/v7`), and RISC devices (`riscv64`).
 
 ## Initialization
 
@@ -42,9 +42,9 @@ configuration information (username and password) for the account(s) you added.
 After that, use `exit` to exit the bridge container.
 
 > Note: The ProtonMail CLI will store the configuration in the volume `proton-bridge`
-> that the above commands mount in the home of the `root` user. Once the configuration
-> is complete, you can delete the container. You can name to container however you want,
-> as long you remeber to use the same name in the commands to run the bridge.
+> that the above commands mount in the home of the `root` user. You can name the
+> volume however you want, as long you remeber to use the same name in the commands
+> to run the bridge. Once the configuration is complete, you can delete the container.
 
 ## Run
 
@@ -58,6 +58,7 @@ Or, if using Docker Compose, use the following command:
 
 ```
 docker compose up -d
+```
 
 > Note: Make sure you mount the same `proton-bridge` volume in the home of the
 > `root` user as the one you used in the command to initialize the bridge.

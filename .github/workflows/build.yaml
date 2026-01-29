@@ -79,11 +79,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Prepare
-        run: |
-          platform=${{ matrix.platform }}
-          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
-
       - name: Set version
         id: version
         run: echo "version=`cat VERSION`" >> $GITHUB_ENV
@@ -112,8 +107,10 @@ jobs:
             ${{ env.DOCKERHUB_REPO }}
             ${{ env.GHCR_REPO }}
           tags: |
-            type=raw,enable=true,value=${{ env.version }}
-            type=raw,enable={{is_default_branch}},value=latest
+            "${{ env.DOCKERHUB_REPO }}:latest"
+            "${{ env.DOCKERHUB_REPO }}:${{ env.version }}"
+            "${{ env.GHCR_REPO }}:latest"
+            "${{ env.GHCR_REPO }}:${{ env.version }}"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
