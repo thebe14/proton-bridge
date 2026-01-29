@@ -1,4 +1,4 @@
-name: Build from source
+name: Build
 
 on:
   push:
@@ -72,9 +72,9 @@ jobs:
       matrix:
         platform:
           - linux/amd64
-          #- linux/arm64/v8
-          #- linux/arm/v7
-          #- linux/riscv64
+          - linux/arm64/v8
+          - linux/arm/v7
+          - linux/riscv64
     steps:
       - name: Checkout
         uses: actions/checkout@master
