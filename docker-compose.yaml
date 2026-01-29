@@ -1,29 +1,16 @@
----
 volumes:
-  certificates:
+  proton-bridge:
+  traefik-certificates:
 
 services:
-  nginx:
-    container_name: proton-bridge
-    image: yss/proton-bridge
-    build:
-      context: proxy/
-      args:
-        - BRIDGE_DOMAIN=${BRIDGE_DOMAIN}
-        - BRIDGE_EMAIL=${BRIDGE_EMAIL}
-        - SSL_CERT_OPTIONS=${SSL_CERT_OPTIONS:-}
-        - SSL_CERT_RENEW_INTERVAL=${SSL_CERT_RENEW_INTERVAL:-12h}
-        - LETSENCRYPT_DIR=${LETSENCRYPT_DIR:-/etc/letsencrypt}
-        - LETSENCRYPT_DRYRUN=${LETSENCRYPT_DRYRUN}
-    volumes:
-      - certificates:${LETSENCRYPT_DIR:-/etc/letsencrypt}
-    healthcheck:
-      test: ['CMD', '/opt/status.sh']
-      start_period: 5s
-      interval: 1m
-      timeout: 5s
-    restart: unless-stopped
+  bridge:
+    image: yssro/proton-bridge
+    environment:
+      BRIDGE_HOSTNAME: ${BRIDGE_HOSTNAME}
     ports:
-      - "8080:80"
-      - "${BRIDGE_IMAP_PORT}:143"
-      - "${BRIDGE_SMTP_PORT}:25"
+      - 1025:25/tcp
+      - 1143:143/tcp
+    restart: unless-stopped
+    volumes:
+      - proton-bridge:/root
+      - traefik-certificates:/etc/traefik/acme:ro
