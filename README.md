@@ -12,7 +12,7 @@ It is based on work by [Xiaonan Shen](https://github.com/shenxn/protonmail-bridg
 and [Hendrik Meyer](https://gitlab.com/T4cC0re/protonmail-bridge-docker). It runs ProtonMail Bridge
 in a container, which allows accessing your Proton mail with any email client that supports IMAP.
 Point your email client on any computer or phone to this container instead the ProtonMail Bridge GUI
-app on your computer, or using the ProtonMail Android or iOS apps on your phone.
+app on your computer, and instead using the ProtonMail Android or iOS app on your phone.
 
 If you spin up a container using the image from Xionan's or Hendrik's work, however,
 each time a mail client connects to it you will be asked if you trust the self-signed
@@ -28,7 +28,8 @@ and support Intel (`amd64`), ARM (`arm64` and `arm/v7`), and RISC devices (`risc
 
 ## Initialization
 
-To initialize and add account(s) to the bridge, supply a volume to store the settings and one that contains a Let's Encrypt ACME JSON file, then run the following command:
+To initialize and add account(s) to the bridge, supply a volume to store the settings
+and one that contains a certificate, then run the following command:
 
 ```
 docker run --rm -it -v certificates:/etc/traefik/acme:ro \
@@ -56,7 +57,8 @@ Wait for the bridge to start up, then you will see a prompt appear for the
 > Note: The ProtonMail CLI will store the configuration in the volume `proton-bridge`
 > that the above commands mount in the home of the `root` user. You can name the
 > volume however you want, as long you remeber to use the same name in the commands
-> to run the bridge. Once the configuration is complete, you can delete the container.
+> to init and run the bridge (see below). Once the configuration is complete, you
+> can delete the container.
 
 ## Run
 
@@ -80,9 +82,10 @@ docker compose up -d
 
 Please be aware that running this container will expose your bridge to the network.
 Remember to use firewall if you are going to run this in an untrusted network or
-on a machine that has public IP address. You can also use the following command
-to publish the port to only localhost, which is the same behavior as the official
-bridge package:
+on a machine that has a public IP address.
+
+You can also use the following command to publish the port to only localhost,
+which is the same behavior as the official bridge package:
 
 ```
 docker run -d --name=proton-bridge -v proton-bridge:/root -v certificates:/etc/traefik/acme:ro \

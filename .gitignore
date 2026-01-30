@@ -9,6 +9,6 @@
 *.swp
 *.swo
 
-# patch
+# patch 
 *.orig
 *.rej
