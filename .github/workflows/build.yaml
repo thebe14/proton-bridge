@@ -115,7 +115,7 @@ jobs:
           push: true
           context: ./bridge
           file: ./bridge/Dockerfile
-          provenance: none
+          provenance: false
           sbom: false
           build-args: |
             VERSION=${{ env.version }}
