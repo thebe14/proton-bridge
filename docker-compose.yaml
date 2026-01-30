@@ -1,6 +1,6 @@
 volumes:
   proton-bridge:
-  traefik-certificates:
+  certificates:
 
 services:
   bridge:
@@ -13,4 +13,4 @@ services:
     restart: unless-stopped
     volumes:
       - proton-bridge:/root
-      - traefik-certificates:/etc/traefik/acme:ro
+      - certificates:/etc/traefik/acme:ro

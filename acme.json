@@ -1,0 +1,36 @@
+{
+  "letsencrypt": {
+    "Account": {
+      "Email": "user@email.domain",
+      "Registration": {
+        "body": {
+          "status": "valid",
+          "contact": [
+            "mailto:user@email.domain"
+          ]
+        },
+        "uri": "https://acme-v02.api.letsencrypt.org/acme/acct/12345678"
+      },
+      "PrivateKey": "MIIJKAIBA...jT6DazvJw=",
+      "KeyType": "4096"
+    },
+    "Certificates": [
+      {
+        "domain": {
+          "main": "my.bridge.domain"
+        },
+        "certificate": "LS0tL...LS0K",
+        "key": "LS0t...S0tCg==",
+        "Store": "default"
+      },
+      {
+        "domain": {
+          "main": "another.bridge.domain"
+        },
+        "certificate": "LS0tL...tLS0K",
+        "key": "LS0tL..LS0K",
+        "Store": "default"
+      }
+    ]
+  }
+}

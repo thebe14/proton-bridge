@@ -1,4 +1,4 @@
-# ProtonMail IMAP/SMTP Bridge Docker Container
+# ProtonMail IMAP/SMTP Bridge Container with TLS Certificate
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?label=License)
 ![version badge](https://img.shields.io/docker/v/yssro/proton-bridge?label=Version)
 ![image size badge](https://img.shields.io/docker/image-size/yssro/proton-bridge?arch=amd64&label=Size)
@@ -14,16 +14,25 @@ in a container, which allows accessing your Proton mail with any email client th
 Point your email client on any computer or phone to this container instead the ProtonMail Bridge GUI
 app on your computer, or using the ProtonMail Android or iOS apps on your phone.
 
+If you spin up a container using the image from Xionan's or Hendrik's work, however,
+each time a mail client connects to it you will be asked if you trust the self-signed
+certificate the bridge generates and uses. To address that, this image allows supplying
+a volume with a certificate for the hostname on which the bridge container
+will be exposed to the internet (see environment variable `BRIDGE_DOMAIN`). This is a
+JSON file that a Traefik reverse proxy produces when configured to use Let's Encrypt
+for automatic certificate generation (see the sample file [acme.json](acme.json)).
+
 Images are available on Docker Hub at
 [https://hub.docker.com/repository/docker/yssro/proton-bridge](https://hub.docker.com/repository/docker/yssro/proton-bridge)
 and support Intel (`amd64`), ARM (`arm64` and `arm/v7`), and RISC devices (`riscv64`).
 
 ## Initialization
 
-To initialize and add account(s) to the bridge, run the following command:
+To initialize and add account(s) to the bridge, supply a volume to store the settings and one that contains a Let's Encrypt ACME JSON file, then run the following command:
 
 ```
-docker run --rm -it -v proton-bridge:/root yssro/proton-bridge init
+docker run --rm -it -v certificates:/etc/traefik/acme:ro \
+-v proton-bridge:/root yssro/proton-bridge init
 ```
 
 If you want to use Docker Compose instead, you can create a copy of the provided example
@@ -36,10 +45,13 @@ docker compose run bridge init
 
 Wait for the bridge to start up, then you will see a prompt appear for the
 [ProtonMail Bridge interactive shell](https://proton.me/support/bridge-cli-guide).
-Use the `login` command and follow the instructions to add your account into the bridge.
-Repeat for each account you want to tunnel via this contianer. Then use `info` to see the
-configuration information (username and password) for the account(s) you added.
-After that, use `exit` to exit the bridge container.
+1. Use the `login` command and follow the instructions to add your account into
+   the bridge. Repeat for each account you want to tunnel via this container.
+2. Use the `cert import` command to add the certificate and its key, `/root/cert.pem`
+   and `/root/key.pem`, respectively.
+3. Use `info` to see the configuration information (username and password), for
+   for the account(s) you added. You will need this to configure your email client.
+4. Use `exit` to exit the bridge container.
 
 > Note: The ProtonMail CLI will store the configuration in the volume `proton-bridge`
 > that the above commands mount in the home of the `root` user. You can name the
@@ -51,7 +63,8 @@ After that, use `exit` to exit the bridge container.
 To run the container, use the following command:
 
 ```
-docker run -d --name=proton-bridge -v proton-bridge:/root -p 1025:25/tcp -p 1143:143/tcp --restart=unless-stopped yssro/proton-bridge
+docker run -d --name=proton-bridge -v proton-bridge:/root -v certificates:/etc/traefik/acme:ro \
+-p 1025:25/tcp -p 1143:143/tcp --restart=unless-stopped yssro/proton-bridge
 ```
 
 Or, if using Docker Compose, use the following command:
@@ -72,11 +85,12 @@ to publish the port to only localhost, which is the same behavior as the officia
 bridge package:
 
 ```
-docker run -d --name=proton-bridge -v proton-bridge:/root -p 127.0.0.1:1025:25/tcp -p 127.0.0.1:1143:143/tcp --restart=unless-stopped yssro/proton-bridge
+docker run -d --name=proton-bridge -v proton-bridge:/root -v certificates:/etc/traefik/acme:ro \
+-p 127.0.0.1:1025:25/tcp -p 127.0.0.1:1143:143/tcp --restart=unless-stopped yssro/proton-bridge
 ```
 
 You can also publish only port 25 (SMTP) if you do not need to receive any
-email (e.g. as service sending email notifications).
+email (e.g. as a service sending email notifications).
 
 ## Bridge CLI Guide
 

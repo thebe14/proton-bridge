@@ -15,7 +15,7 @@ on:
 env:
   GHCR_REPO: ghcr.io/thebe14/proton-bridge
   DOCKERHUB_REPO: yssro/proton-bridge
-  PLATFORMS: linux/amd64,linux/arm64/v8  #,linux/arm/v7,linux/riscv64
+  PLATFORMS: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/riscv64
 
 jobs:
   scan:
