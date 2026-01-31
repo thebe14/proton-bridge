@@ -37,7 +37,7 @@ docker run --rm -it -v certificates:/etc/traefik/acme:ro -v proton-bridge:/root 
 ```
 
 If you want to use Docker Compose instead, you can create a copy of the provided example
-[docker-compose.yml](docker-compose.yml) file, make a copy of the sample file
+[docker-compose.yaml](docker-compose.yaml) file, make a copy of the sample file
 [.env.template](.env.template) and name it `.env`, modify these to suit your needs,
 and then run the following command:
 
