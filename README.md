@@ -67,7 +67,8 @@ To run the container, use the following command:
 
 ```
 docker run -d --name=proton-bridge -v proton-bridge:/root -v certificates:/etc/traefik/acme:ro \
--e BRIDGE_HOSTNAME=my.bridge.domain -p 1025:25/tcp -p 1143:143/tcp --restart=unless-stopped yssro/proton-bridge
+-e BRIDGE_HOSTNAME=my.bridge.domain -p 1025:25/tcp -p 1143:143/tcp --restart=unless-stopped \
+yssro/proton-bridge
 ```
 
 Or, if using Docker Compose, use the following command:
