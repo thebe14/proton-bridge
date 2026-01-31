@@ -18,7 +18,7 @@ If you spin up a container using the image from Xionan's or Hendrik's work, howe
 each time a mail client connects to it you will be asked if you trust the self-signed
 certificate the bridge generates and uses. To address that, this image allows supplying
 a volume with a certificate for the hostname on which the bridge container
-will be exposed to the internet (see environment variable `BRIDGE_DOMAIN`). This is a
+will be exposed to the internet (see environment variable `BRIDGE_HOSTNAME`). This is a
 JSON file that a Traefik reverse proxy produces when configured to use Let's Encrypt
 for automatic certificate generation (see the sample file [acme.json](acme.json)).
 
@@ -32,13 +32,14 @@ To initialize and add account(s) to the bridge, supply a volume to store the set
 and one that contains a certificate, then run the following command:
 
 ```
-docker run --rm -it -v certificates:/etc/traefik/acme:ro \
--v proton-bridge:/root yssro/proton-bridge init
+docker run --rm -it -v certificates:/etc/traefik/acme:ro -v proton-bridge:/root \
+-e BRIDGE_HOSTNAME=my.bridge.domain yssro/proton-bridge init
 ```
 
 If you want to use Docker Compose instead, you can create a copy of the provided example
-[docker-compose.yml](docker-compose.yml) file, modify it to suit your needs, and then
-run the following command:
+[docker-compose.yml](docker-compose.yml) file, make a copy of the sample file
+[.env.template](.env.template) and name it `.env`, modify these to suit your needs,
+and then run the following command:
 
 ```
 docker compose run bridge init
@@ -66,7 +67,7 @@ To run the container, use the following command:
 
 ```
 docker run -d --name=proton-bridge -v proton-bridge:/root -v certificates:/etc/traefik/acme:ro \
--p 1025:25/tcp -p 1143:143/tcp --restart=unless-stopped yssro/proton-bridge
+-e BRIDGE_HOSTNAME=my.bridge.domain -p 1025:25/tcp -p 1143:143/tcp --restart=unless-stopped yssro/proton-bridge
 ```
 
 Or, if using Docker Compose, use the following command:
@@ -89,7 +90,8 @@ which is the same behavior as the official bridge package:
 
 ```
 docker run -d --name=proton-bridge -v proton-bridge:/root -v certificates:/etc/traefik/acme:ro \
--p 127.0.0.1:1025:25/tcp -p 127.0.0.1:1143:143/tcp --restart=unless-stopped yssro/proton-bridge
+-e BRIDGE_HOSTNAME=my.bridge.domain -p 127.0.0.1:1025:25/tcp -p 127.0.0.1:1143:143/tcp \
+--restart=unless-stopped yssro/proton-bridge
 ```
 
 You can also publish only port 25 (SMTP) if you do not need to receive any
