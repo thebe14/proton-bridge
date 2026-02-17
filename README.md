@@ -1,11 +1,11 @@
 # ProtonMail IMAP/SMTP Bridge Container with TLS Certificate
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?label=License)
-![version badge](https://img.shields.io/docker/v/yssro/proton-bridge?label=Version)
-![image size badge](https://img.shields.io/docker/image-size/yssro/proton-bridge?arch=amd64&label=Size)
-![docker pulls badge](https://img.shields.io/docker/pulls/yssro/proton-bridge?label=Pulls)
-![build badge](https://github.com/thebe14/proton-bridge/workflows/Build/badge.svg)
+![Version](https://img.shields.io/docker/v/yssro/proton-bridge?label=Version)
+![Image size](https://img.shields.io/docker/image-size/yssro/proton-bridge?arch=amd64&label=Size)
+![Docker pulls](https://img.shields.io/docker/pulls/yssro/proton-bridge?label=Pulls)
+![Image build](https://github.com/thebe14/proton-bridge/workflows/Build/badge.svg)
 ![GitHub issues](https://img.shields.io/github/issues/thebe14/proton-bridge?label=Issues)
-![GitHub issue custom search in repo](https://img.shields.io/github/issues-search/thebe14/proton-bridge?color=red&query=is%3Aopen%20label%3Abug&label=Bugs)
+![GitHub issues labeled bugs](https://img.shields.io/github/issues-search/thebe14/proton-bridge?color=red&query=is%3Aopen%20label%3Abug&label=Bugs)
 
 This is an unofficial Docker container of the [ProtonMail Bridge](https://protonmail.com/bridge/).
 It is based on work by [Xiaonan Shen](https://github.com/shenxn/protonmail-bridge-docker)
