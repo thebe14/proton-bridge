@@ -57,7 +57,7 @@ Wait for the bridge to start up, then you will see a prompt appear for the
 
 > Note: The ProtonMail CLI will store the configuration in the volume `proton-bridge`
 > that the above commands mount in the home of the `root` user. You can name the
-> volume however you want, as long you remeber to use the same name in the commands
+> volume however you want, as long as you remeber to use the same name in the commands
 > to init and run the bridge (see below). Once the configuration is complete, you
 > can delete the container.
 
