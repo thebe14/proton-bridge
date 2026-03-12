@@ -33,7 +33,7 @@ jobs:
 
       - name: Build image
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           load: true
           context: ./bridge
@@ -107,7 +107,7 @@ jobs:
 
       - name: Build and push image
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           platforms: ${{ env.PLATFORMS }}
           labels: ${{ steps.meta.outputs.labels }}
