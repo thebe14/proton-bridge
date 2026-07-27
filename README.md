@@ -7,7 +7,9 @@
 ![GitHub issues](https://img.shields.io/github/issues/thebe14/proton-bridge?label=Issues)
 ![GitHub issues labeled bugs](https://img.shields.io/github/issues-search/thebe14/proton-bridge?color=red&query=is%3Aopen%20label%3Abug&label=Bugs)
 
-This is an unofficial Docker container of the [ProtonMail Bridge](https://protonmail.com/bridge/).
+This is an unofficial Docker container of the [ProtonMail Bridge](https://protonmail.com/bridge/)
+(see also [GitHub repository](https://github.com/ProtonMail/proton-bridge) and
+[build instructions](https://github.com/ProtonMail/proton-bridge/blob/master/BUILDS.md)).
 It is based on work by [Xiaonan Shen](https://github.com/shenxn/protonmail-bridge-docker)
 and [Hendrik Meyer](https://gitlab.com/T4cC0re/protonmail-bridge-docker). It runs ProtonMail Bridge
 in a container, which allows accessing your Proton mail with any email client that supports IMAP.
