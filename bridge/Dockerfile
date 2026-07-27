@@ -4,7 +4,7 @@ FROM debian:sid-slim AS build
 ARG VERSION
 
 # Install dependencies
-RUN apt-get update && apt-get install -y golang build-essential libsecret-1-dev libglvnd-dev
+RUN apt-get update && apt-get install -y golang build-essential libsecret-1-dev libglvnd-dev libfido2
 
 # Build
 ADD https://github.com/ProtonMail/proton-bridge.git#v${VERSION} /build/
