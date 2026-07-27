@@ -26,7 +26,7 @@ for automatic certificate generation (see the sample file [acme.json](acme.json)
 
 Images are available on Docker Hub at
 [https://hub.docker.com/repository/docker/yssro/proton-bridge](https://hub.docker.com/repository/docker/yssro/proton-bridge)
-and support Intel (`amd64`), ARM (`arm64` and `arm/v7`), and RISC devices (`riscv64`).
+for 64-bit Intel (`amd64`), ARM (`arm64`), and RISC devices (`riscv64`).
 
 ## Initialization
 
