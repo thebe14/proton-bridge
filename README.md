@@ -13,8 +13,8 @@ This is an unofficial Docker container of the [ProtonMail Bridge](https://proton
 It is based on work by [Xiaonan Shen](https://github.com/shenxn/protonmail-bridge-docker)
 and [Hendrik Meyer](https://gitlab.com/T4cC0re/protonmail-bridge-docker). It runs ProtonMail Bridge
 in a container, which allows accessing your Proton mail with any email client that supports IMAP.
-Point your email client on any computer or phone to this container instead the ProtonMail Bridge GUI
-app on your computer, and instead using the ProtonMail Android or iOS app on your phone.
+Point your email client running on any computer or phone to this container instead of using the
+ProtonMail Bridge GUI app on your computer, or the ProtonMail Android or iOS app on your phone.
 
 If you spin up a container using the image from Xionan's or Hendrik's work, however,
 each time a mail client connects to it you will be asked if you trust the self-signed
